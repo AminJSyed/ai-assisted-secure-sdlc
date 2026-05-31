@@ -1,0 +1,11 @@
+apiVersion: 1
+
+providers:
+  - name: Secure SDLC Dashboards
+    orgId: 1
+    folder: Secure SDLC
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 10
+    options:
+      path: /var/lib/grafana/dashboards

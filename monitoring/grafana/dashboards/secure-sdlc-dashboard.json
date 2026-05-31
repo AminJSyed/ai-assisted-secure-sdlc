@@ -1,0 +1,64 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "High Findings - Insecure Profile",
+      "gridPos": {"x": 0, "y": 0, "w": 6, "h": 4},
+      "targets": [
+        {"expr": "secure_sdlc_findings_total{profile=\"insecure\",severity=\"high\"}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Medium Findings - Insecure Profile",
+      "gridPos": {"x": 6, "y": 0, "w": 6, "h": 4},
+      "targets": [
+        {"expr": "secure_sdlc_findings_total{profile=\"insecure\",severity=\"medium\"}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Release Block",
+      "gridPos": {"x": 12, "y": 0, "w": 6, "h": 4},
+      "targets": [
+        {"expr": "secure_sdlc_release_decision{decision=\"block\"}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "stat",
+      "title": "Secure Profile High Findings",
+      "gridPos": {"x": 18, "y": 0, "w": 6, "h": 4},
+      "targets": [
+        {"expr": "secure_sdlc_findings_total{profile=\"secure\",severity=\"high\"}", "refId": "A"}
+      ]
+    },
+    {
+      "type": "bargauge",
+      "title": "Triage Priorities",
+      "gridPos": {"x": 0, "y": 4, "w": 12, "h": 8},
+      "targets": [
+        {"expr": "secure_sdlc_triage_priority_total", "refId": "A"}
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Findings by Severity",
+      "gridPos": {"x": 12, "y": 4, "w": 12, "h": 8},
+      "targets": [
+        {"expr": "secure_sdlc_findings_total", "refId": "A"}
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 39,
+  "tags": ["secure-sdlc", "ai-assisted-security"],
+  "templating": {"list": []},
+  "time": {"from": "now-1h", "to": "now"},
+  "title": "AI-Assisted Secure SDLC",
+  "uid": "ai-assisted-secure-sdlc",
+  "version": 1
+}

@@ -6,6 +6,9 @@ help:
 	@echo "make ai-review       - Run AI-assisted code and config security review"
 	@echo "make triage          - Run finding triage assistant"
 	@echo "make release-review  - Run release security review"
+	@echo "make dashboard       - Generate HTML dashboard and Prometheus metrics"
+	@echo "make monitoring      - Start Prometheus and Grafana dashboard"
+	@echo "make monitoring-down - Stop Prometheus and Grafana dashboard"
 	@echo "make all             - Run all reviews"
 	@echo "make clean           - Remove generated reports"
 
@@ -22,3 +25,21 @@ all: ai-review triage release-review
 
 clean:
 	rm -rf reports/*
+
+ai-review-secure:
+	python3 ai-reviewer/review_changed_files.py --profile secure --output reports/ai-assisted-security-review-secure.md
+
+ai-review-insecure:
+	python3 ai-reviewer/review_changed_files.py --profile insecure --output reports/ai-assisted-security-review-insecure.md
+
+dashboard: ai-review-insecure ai-review-secure triage release-review
+	python3 dashboard/generate_dashboard.py
+
+metrics: dashboard
+	python3 dashboard/metrics_server.py
+
+monitoring: dashboard
+	docker compose -f docker-compose.monitoring.yml up -d --build
+
+monitoring-down:
+	docker compose -f docker-compose.monitoring.yml down

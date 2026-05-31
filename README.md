@@ -145,3 +145,36 @@ The project reviews code, Dockerfiles, Kubernetes manifests, and sample scan out
 It helps identify risky code patterns, insecure configuration, missing security controls, and release readiness gaps.
 
 The important point is that the AI-assisted workflow does not replace human approval. It supports security decision-making by generating evidence, highlighting risk, and recommending whether a release should pass, pass with warnings, or be blocked.
+
+
+## Dashboarding and Observability
+
+This project includes dashboarding for AI-assisted Secure SDLC visibility.
+
+It can generate:
+
+- markdown reports
+- HTML dashboard
+- Prometheus metrics
+- Grafana dashboard
+
+Generate local dashboard:
+
+    make dashboard
+
+Start Prometheus and Grafana:
+
+    make monitoring
+
+Open Grafana:
+
+    http://localhost:3002
+
+Open Prometheus:
+
+    http://localhost:9091
+
+Open metrics endpoint:
+
+    http://localhost:9200/metrics
+

@@ -21,6 +21,9 @@ jobs:
           python3 ai-reviewer/review_changed_files.py
           python3 ai-reviewer/finding_triage_assistant.py
           python3 ai-reviewer/release_security_review.py
+          python3 ai-reviewer/review_changed_files.py --profile insecure --output reports/ai-assisted-security-review-insecure.md
+          python3 ai-reviewer/review_changed_files.py --profile secure --output reports/ai-assisted-security-review-secure.md
+          python3 dashboard/generate_dashboard.py
 
       - name: Upload release review report
         uses: actions/upload-artifact@v4
@@ -30,3 +33,5 @@ jobs:
             reports/ai-assisted-security-review.md
             reports/finding-triage-report.md
             reports/release-security-review.md
+            dashboard/security-dashboard.html
+            dashboard/secure-sdlc-metrics.prom

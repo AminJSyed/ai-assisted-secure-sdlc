@@ -1,0 +1,17 @@
+# HELP secure_sdlc_findings_total AI-assisted Secure SDLC findings by profile and severity
+# TYPE secure_sdlc_findings_total gauge
+secure_sdlc_findings_total{profile="insecure",severity="high"} 3
+secure_sdlc_findings_total{profile="insecure",severity="medium"} 4
+secure_sdlc_findings_total{profile="secure",severity="high"} 0
+secure_sdlc_findings_total{profile="secure",severity="medium"} 0
+# HELP secure_sdlc_release_decision Release decision as one-hot gauge
+# TYPE secure_sdlc_release_decision gauge
+secure_sdlc_release_decision{decision="block"} 1
+secure_sdlc_release_decision{decision="pass"} 0
+secure_sdlc_release_decision{decision="pass_with_warnings"} 0
+# HELP secure_sdlc_triage_priority_total Finding triage count by priority
+# TYPE secure_sdlc_triage_priority_total gauge
+secure_sdlc_triage_priority_total{priority="P1"} 1
+secure_sdlc_triage_priority_total{priority="P2"} 1
+secure_sdlc_triage_priority_total{priority="P3"} 1
+secure_sdlc_triage_priority_total{priority="P4"} 0

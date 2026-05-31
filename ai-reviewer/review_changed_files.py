@@ -1,13 +1,21 @@
 from pathlib import Path
+import argparse
 import re
 
 REPORT_PATH = Path("reports/ai-assisted-security-review.md")
 
-TARGETS = [
-    Path("fixtures/vulnerable-python-app/app.py"),
-    Path("fixtures/insecure-dockerfile/Dockerfile"),
-    Path("fixtures/insecure-kubernetes/deployment.yaml"),
-]
+TARGET_PROFILES = {
+    "insecure": [
+        Path("fixtures/vulnerable-python-app/app.py"),
+        Path("fixtures/insecure-dockerfile/Dockerfile"),
+        Path("fixtures/insecure-kubernetes/deployment.yaml"),
+    ],
+    "secure": [
+        Path("fixtures/secure-python-app/app.py"),
+        Path("fixtures/secure-dockerfile/Dockerfile"),
+        Path("fixtures/secure-kubernetes/deployment.yaml"),
+    ],
+}
 
 RULES = [
     {
@@ -27,7 +35,7 @@ RULES = [
     {
         "id": "SECRET-HARDCODED",
         "severity": "MEDIUM",
-        "pattern": r"API_KEY\s*=",
+        "pattern": r"API_KEY\s*=\s*[\"']",
         "message": "Possible hardcoded API key.",
         "recommendation": "Use environment variables or a secret manager."
     },
@@ -39,11 +47,25 @@ RULES = [
         "recommendation": "Create and use a non-root user in the image."
     },
     {
+        "id": "DOCKER-MISSING-HEALTHCHECK",
+        "severity": "MEDIUM",
+        "pattern": r"^FROM ",
+        "message": "Dockerfile should define a HEALTHCHECK.",
+        "recommendation": "Add a HEALTHCHECK instruction."
+    },
+    {
         "id": "K8S-MISSING-SECURITYCONTEXT",
         "severity": "MEDIUM",
         "pattern": r"containers:",
         "message": "Kubernetes workload should include securityContext.",
         "recommendation": "Set runAsNonRoot, drop capabilities, disable privilege escalation, and use seccomp."
+    },
+    {
+        "id": "K8S-MISSING-RESOURCE-LIMITS",
+        "severity": "MEDIUM",
+        "pattern": r"containers:",
+        "message": "Kubernetes workload should include resource requests and limits.",
+        "recommendation": "Add CPU and memory requests and limits."
     }
 ]
 
@@ -59,7 +81,11 @@ def scan_file(path: Path):
         if re.search(rule["pattern"], content, re.MULTILINE):
             if rule["id"] == "DOCKER-MISSING-USER" and "USER " in content:
                 continue
+            if rule["id"] == "DOCKER-MISSING-HEALTHCHECK" and "HEALTHCHECK" in content:
+                continue
             if rule["id"] == "K8S-MISSING-SECURITYCONTEXT" and "securityContext:" in content:
+                continue
+            if rule["id"] == "K8S-MISSING-RESOURCE-LIMITS" and "resources:" in content and "limits:" in content and "requests:" in content:
                 continue
 
             findings.append({
@@ -78,11 +104,12 @@ def decision(findings):
     return "PASS"
 
 
-def main():
-    REPORT_PATH.parent.mkdir(exist_ok=True)
+def generate_report(profile: str, output: Path):
+    targets = TARGET_PROFILES[profile]
+    output.parent.mkdir(exist_ok=True)
 
     all_findings = []
-    for target in TARGETS:
+    for target in targets:
         all_findings.extend(scan_file(target))
 
     result = decision(all_findings)
@@ -90,11 +117,13 @@ def main():
     lines = []
     lines.append("# AI-Assisted Security Review")
     lines.append("")
+    lines.append(f"Profile: {profile}")
+    lines.append("")
     lines.append(f"Decision: {result}")
     lines.append("")
     lines.append("## Reviewed Files")
     lines.append("")
-    for target in TARGETS:
+    for target in targets:
         lines.append(f"- {target}")
     lines.append("")
     lines.append("## Findings")
@@ -116,8 +145,18 @@ def main():
     lines.append("")
     lines.append("This AI-assisted review is advisory. High-risk findings require human review before merge.")
 
-    REPORT_PATH.write_text("\n".join(lines))
-    print(REPORT_PATH.read_text())
+    output.write_text("\n".join(lines))
+    return result, all_findings
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--profile", choices=["insecure", "secure"], default="insecure")
+    parser.add_argument("--output", default=str(REPORT_PATH))
+    args = parser.parse_args()
+
+    result, findings = generate_report(args.profile, Path(args.output))
+    print(Path(args.output).read_text())
 
 
 if __name__ == "__main__":

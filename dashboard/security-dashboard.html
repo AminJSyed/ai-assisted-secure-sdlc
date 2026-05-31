@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>AI-Assisted Secure SDLC Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 32px; background: #f6f8fa; color: #24292f; }
+    h1 { margin-bottom: 4px; }
+    .subtitle { color: #57606a; margin-bottom: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+    .card { background: white; border: 1px solid #d0d7de; border-radius: 12px; padding: 18px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+    .metric { font-size: 32px; font-weight: bold; margin-top: 8px; }
+    .block { color: #cf222e; }
+    .pass { color: #1a7f37; }
+    .warn { color: #9a6700; }
+    table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; border: 1px solid #d0d7de; }
+    th, td { padding: 12px; border-bottom: 1px solid #d0d7de; text-align: left; }
+    th { background: #f0f3f6; }
+    pre { background: #0d1117; color: #c9d1d9; padding: 16px; border-radius: 12px; overflow: auto; }
+  </style>
+</head>
+<body>
+  <h1>AI-Assisted Secure SDLC Dashboard</h1>
+  <div class="subtitle">Generated: 2026-05-31T06:51:47.931821 UTC</div>
+
+  <div class="grid">
+    <div class="card">
+      <div>Release Decision</div>
+      <div class="metric block">BLOCK</div>
+    </div>
+    <div class="card">
+      <div>Insecure Profile</div>
+      <div class="metric block">BLOCK RECOMMENDED</div>
+    </div>
+    <div class="card">
+      <div>Secure Profile</div>
+      <div class="metric pass">PASS</div>
+    </div>
+    <div class="card">
+      <div>High Findings</div>
+      <div class="metric block">3</div>
+    </div>
+  </div>
+
+  <h2>Security Review Comparison</h2>
+  <table>
+    <tr><th>Profile</th><th>Decision</th><th>High</th><th>Medium</th><th>Meaning</th></tr>
+    <tr><td>Insecure fixture</td><td>BLOCK RECOMMENDED</td><td>3</td><td>4</td><td>Unsafe release should be stopped</td></tr>
+    <tr><td>Secure fixture</td><td>PASS</td><td>0</td><td>0</td><td>Clean profile should pass advisory review</td></tr>
+  </table>
+
+  <h2>Triage Priority Summary</h2>
+  <table>
+    <tr><th>Priority</th><th>Count</th></tr>
+    <tr><td>P1</td><td>1</td></tr>
+    <tr><td>P2</td><td>1</td></tr>
+    <tr><td>P3</td><td>1</td></tr>
+    <tr><td>P4</td><td>0</td></tr>
+  </table>
+
+  <h2>Release Review</h2>
+  <pre># Release Security Review
+
+Release decision: BLOCK
+
+## Evidence Present
+
+- AI-assisted security review: reports/ai-assisted-security-review.md
+- Finding triage report: reports/finding-triage-report.md
+- Sample scan results: fixtures/sample-scan-results/sample-findings.json
+
+## Evidence Missing
+
+No required evidence missing.
+
+## Human Approval Note
+
+Production release decisions require human approval. This report is advisory.</pre>
+</body>
+</html>
