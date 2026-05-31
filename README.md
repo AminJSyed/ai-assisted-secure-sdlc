@@ -33,6 +33,41 @@ This project demonstrates:
 - advisory security gates
 - human approval policy for high-risk changes
 
+## Platform Capabilities
+
+This project acts as a compact AI-assisted Secure SDLC platform.
+
+It provides:
+
+| Capability | What It Does |
+|---|---|
+| PR security review | Reviews changed files in pull requests and identifies risky code or configuration |
+| Security gate enforcement | Fails the PR workflow when the review decision is `BLOCK RECOMMENDED` |
+| Secure code review | Detects patterns such as SQL injection, command injection, hardcoded secrets, and missing hardening controls |
+| Vulnerability triage | Prioritizes findings using severity, runtime exposure, and fix availability |
+| Release readiness review | Produces release decisions such as PASS, PASS WITH WARNINGS, or BLOCK |
+| Security intelligence | Generates SARIF, AI-assisted remediation guidance, risk score, and executive release summary |
+| Code scanning integration | Uploads SARIF findings into GitHub Code Scanning |
+| Dashboarding | Publishes HTML, Prometheus, and Grafana views for security posture |
+| Governance | Adds release policy, CODEOWNERS, evidence index, and branch protection guidance |
+| Human approval model | Keeps AI-assisted output advisory and requires human validation for high-risk decisions |
+
+## Production-Style Workflow
+
+The intended workflow is:
+
+    developer opens PR
+    -> AI-assisted PR review scans changed files
+    -> risky patterns are identified
+    -> PR receives a security review comment
+    -> workflow artifact is uploaded
+    -> security gate fails if BLOCK RECOMMENDED
+    -> release review generates evidence
+    -> SARIF findings appear in GitHub Code Scanning
+    -> dashboards visualize release/security posture
+    -> human reviewer approves, rejects, or accepts risk
+
+
 ## Current Design
 
 The first version uses a local rule-based AI-style reviewer.
@@ -136,17 +171,6 @@ This project follows these principles:
 - release decisions should be evidence-based
 - automation should not approve its own risky changes
 
-## Interview Explanation
-
-I created this project to demonstrate how AI-assisted engineering can support Secure SDLC and software release management.
-
-The project reviews code, Dockerfiles, Kubernetes manifests, and sample scan outputs to generate structured security summaries.
-
-It helps identify risky code patterns, insecure configuration, missing security controls, and release readiness gaps.
-
-The important point is that the AI-assisted workflow does not replace human approval. It supports security decision-making by generating evidence, highlighting risk, and recommending whether a release should pass, pass with warnings, or be blocked.
-
-
 ## Dashboards and Visual Evidence
 
 This project includes visual dashboards to make AI-assisted Secure SDLC decisions easier to understand.
@@ -212,6 +236,21 @@ The AI-Assisted PR Security Review workflow will:
 The demo PR intentionally includes insecure patterns so the review should recommend blocking or human review.
 
 This demonstrates how AI-assisted security automation can support PR review without automatically approving risky changes.
+
+
+## Governance Layer
+
+This project includes a governance layer for production-style Secure SDLC control.
+
+| File | Purpose |
+|---|---|
+| policy/release-policy.yml | Policy-as-code release decision and approval model |
+| .github/CODEOWNERS | Ownership rules for sensitive project paths |
+| docs/branch-protection-policy.md | Recommended branch protection and required checks |
+| docs/governance-model.md | Governance model for AI-assisted Secure SDLC |
+| evidence/evidence-index.md | Index of generated reports, dashboards, screenshots, and security evidence |
+
+The governance layer ensures that AI-assisted automation supports decision-making without bypassing human accountability.
 
 
 ## Security Intelligence Layer

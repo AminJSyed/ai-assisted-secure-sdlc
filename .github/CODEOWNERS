@@ -1,0 +1,20 @@
+# AI-Assisted Secure SDLC ownership model
+
+# Security automation and reviewer logic
+/ai-reviewer/ @AminJSyed
+
+# GitHub Actions workflows
+/.github/workflows/ @AminJSyed
+
+# Release and security policies
+/policy/ @AminJSyed
+/docs/ @AminJSyed
+
+# Evidence and dashboards
+/evidence/ @AminJSyed
+/dashboard/ @AminJSyed
+/monitoring/ @AminJSyed
+
+# Fixtures used for security validation
+/fixtures/ @AminJSyed
+/demo-pr/ @AminJSyed

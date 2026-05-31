@@ -1,0 +1,55 @@
+release_policy:
+  name: AI-Assisted Secure SDLC Release Policy
+  mode: advisory_with_blocking_recommendation
+
+  decisions:
+    pass:
+      description: Release can proceed when no blocking risks are found.
+    pass_with_warnings:
+      description: Release can proceed only when warnings are reviewed and accepted.
+    block:
+      description: Release should not proceed until blocking findings are remediated or formally accepted.
+
+  blocking_conditions:
+    severities:
+      - critical
+      - high
+
+    finding_types:
+      - sql_injection
+      - command_injection
+      - hardcoded_secret
+      - insecure_ci_cd
+      - unsafe_kubernetes_rbac
+      - public_secret_exposure
+
+  human_approval_required_for:
+    - production_release
+    - authentication_change
+    - authorization_change
+    - secrets_handling_change
+    - ci_cd_workflow_change
+    - infrastructure_permission_change
+    - kubernetes_rbac_change
+    - accepted_high_or_critical_risk
+    - security_control_disablement
+
+  required_evidence:
+    - ai_assisted_security_review
+    - finding_triage_report
+    - release_security_review
+    - executive_release_summary
+    - security_risk_score
+    - sarif_code_scanning_output
+
+  allowed_ai_modes:
+    default: rule_based
+    optional:
+      - llm_assisted_with_human_review
+
+  principles:
+    - AI output is advisory.
+    - Human approval is required for high-risk release decisions.
+    - Security gates must be explainable.
+    - Findings must include recommended remediation.
+    - Release decisions must be evidence-based.
