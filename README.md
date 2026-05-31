@@ -212,6 +212,32 @@ The demo PR intentionally includes insecure patterns so the review should recomm
 This demonstrates how AI-assisted security automation can support PR review without automatically approving risky changes.
 
 
+## Security Intelligence Layer
+
+This project includes a Security Intelligence Layer that converts AI-assisted review output into structured security evidence.
+
+It generates:
+
+- SARIF output for GitHub Code Scanning
+- AI-assisted remediation suggestions
+- security risk score
+- executive release security summary
+
+Run locally:
+
+    make security-intelligence
+
+Generated files:
+
+| File | Purpose |
+|---|---|
+| reports/ai-assisted-findings.sarif | Code scanning compatible SARIF output |
+| reports/security-risk-score.md | Risk score and recommended decision |
+| reports/executive-release-summary.md | Executive release security summary |
+
+This makes the Secure SDLC workflow easier to consume by developers, security engineers, and release managers.
+
+
 ## Dashboarding and Observability
 
 This project includes dashboarding for AI-assisted Secure SDLC visibility.
