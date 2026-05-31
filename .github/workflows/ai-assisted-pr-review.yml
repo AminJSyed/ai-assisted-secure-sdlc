@@ -38,10 +38,18 @@ jobs:
           echo "All changed files:"
           cat reports/changed-files-all.txt
 
-          grep -E '\.(py|yml|yaml|json|Dockerfile|dockerfile|tf|sh|bash|js|ts|go|java|cs|rb|php)$|(^|/)Dockerfile$' reports/changed-files-all.txt > reports/changed-files.txt || true
+          > reports/changed-files.txt
+
+          while IFS= read -r file; do
+            if [ -f "$file" ]; then
+              echo "$file" | grep -E '\.(py|yml|yaml|json|Dockerfile|dockerfile|tf|sh|bash|js|ts|go|java|cs|rb|php)$|(^|/)Dockerfile$' >> reports/changed-files.txt || true
+            else
+              echo "Skipping deleted or missing file: $file"
+            fi
+          done < reports/changed-files-all.txt
 
           echo ""
-          echo "Security-relevant files selected for review:"
+          echo "Security-relevant existing files selected for review:"
           cat reports/changed-files.txt || true
 
       - name: Run AI-assisted security review on changed files
