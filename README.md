@@ -2,6 +2,13 @@
 
 AI-assisted security review, vulnerability triage, and release readiness automation for secure software delivery.
 
+## Workflow Overview
+
+![Secure SDLC with AI-Assisted Review and Security Automation](screenshots/AI-assisted%20secure%20SDLC%20workflow%20overview.png)
+
+This project demonstrates a production-style Secure SDLC workflow enhanced with AI-assisted review, security automation, code scanning, release review, observability, and human approval gates.
+
+
 ## Purpose
 
 This project demonstrates how AI-assisted engineering can support Secure SDLC workflows.
@@ -179,6 +186,7 @@ The dashboarding layer shows how insecure code and configuration can result in a
 
 | Dashboard | Purpose |
 |---|---|
+| ![Secure SDLC Workflow Overview](screenshots/AI-assisted%20secure%20SDLC%20workflow%20overview.png) | End-to-end Secure SDLC workflow with AI-assisted review, security automation, release review, observability, and human approval gates |
 | ![Grafana Secure SDLC Dashboard](screenshots/grafana-secure-sdlc-dashboard.png) | Grafana dashboard showing high findings, medium findings, release block status, secure profile status, and triage priorities |
 | ![HTML Security Dashboard](screenshots/html-security-dashboard.png) | Static HTML dashboard generated from AI-assisted security review and release review outputs |
 | ![Prometheus Secure SDLC Metrics](screenshots/prometheus-secure-sdlc-metrics.png) | Prometheus metrics exposed for Secure SDLC findings, release decision, and triage priorities |
