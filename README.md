@@ -168,6 +168,22 @@ The project generates security review reports, converts them into Prometheus-sty
 This makes the Secure SDLC decision process visible through both reports and dashboards.
 
 
+## PR Security Gate Behavior
+
+The AI-Assisted PR Security Review workflow is designed to behave like a Secure SDLC advisory gate.
+
+For pull requests, it:
+
+- detects changed files
+- scans the changed files for risky code and configuration patterns
+- generates a markdown security review
+- comments the review summary on the pull request
+- uploads the review as a GitHub Actions artifact
+- fails the check if the decision is `BLOCK RECOMMENDED`
+
+This makes insecure pull requests visible directly in GitHub and prevents risky changes from appearing as fully green without review.
+
+
 ## Pull Request Demo Flow
 
 This project includes a demo flow to show AI-assisted PR security review in action.
