@@ -147,6 +147,27 @@ It helps identify risky code patterns, insecure configuration, missing security 
 The important point is that the AI-assisted workflow does not replace human approval. It supports security decision-making by generating evidence, highlighting risk, and recommending whether a release should pass, pass with warnings, or be blocked.
 
 
+## Dashboards and Visual Evidence
+
+This project includes visual dashboards to make AI-assisted Secure SDLC decisions easier to understand.
+
+The dashboarding layer shows how insecure code and configuration can result in a blocked release decision, while secure fixtures pass the advisory review.
+
+| Dashboard | Purpose |
+|---|---|
+| ![Grafana Secure SDLC Dashboard](screenshots/grafana-secure-sdlc-dashboard.png) | Grafana dashboard showing high findings, medium findings, release block status, secure profile status, and triage priorities |
+| ![HTML Security Dashboard](screenshots/html-security-dashboard.png) | Static HTML dashboard generated from AI-assisted security review and release review outputs |
+| ![Prometheus Secure SDLC Metrics](screenshots/prometheus-secure-sdlc-metrics.png) | Prometheus metrics exposed for Secure SDLC findings, release decision, and triage priorities |
+
+### Observability Flow
+
+The project generates security review reports, converts them into Prometheus-style metrics, and visualizes them in Grafana.
+
+    AI-assisted review -> release review -> metrics exporter -> Prometheus -> Grafana
+
+This makes the Secure SDLC decision process visible through both reports and dashboards.
+
+
 ## Dashboarding and Observability
 
 This project includes dashboarding for AI-assisted Secure SDLC visibility.
