@@ -158,6 +158,7 @@ The dashboarding layer shows how insecure code and configuration can result in a
 | ![Grafana Secure SDLC Dashboard](screenshots/grafana-secure-sdlc-dashboard.png) | Grafana dashboard showing high findings, medium findings, release block status, secure profile status, and triage priorities |
 | ![HTML Security Dashboard](screenshots/html-security-dashboard.png) | Static HTML dashboard generated from AI-assisted security review and release review outputs |
 | ![Prometheus Secure SDLC Metrics](screenshots/prometheus-secure-sdlc-metrics.png) | Prometheus metrics exposed for Secure SDLC findings, release decision, and triage priorities |
+| ![GitHub PR Security Gate Failed](screenshots/github-pr-security-gate-failed.png) | Pull request blocked by the AI-assisted PR security review after detecting risky code patterns |
 
 ### Observability Flow
 
