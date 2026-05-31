@@ -1,0 +1,33 @@
+name: AI-Assisted PR Security Review
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  ai-assisted-pr-review:
+    name: Run AI-Assisted PR Security Review
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run AI-assisted security review
+        run: |
+          mkdir -p reports
+          python3 ai-reviewer/review_changed_files.py
+
+      - name: Run finding triage assistant
+        run: |
+          python3 ai-reviewer/finding_triage_assistant.py
+
+      - name: Upload review reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-assisted-pr-security-review
+          path: |
+            reports/ai-assisted-security-review.md
+            reports/finding-triage-report.md

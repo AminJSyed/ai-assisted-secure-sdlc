@@ -1,0 +1,29 @@
+[
+  {
+    "tool": "sast",
+    "id": "SAST-001",
+    "severity": "high",
+    "title": "Possible SQL injection",
+    "file": "fixtures/vulnerable-python-app/app.py",
+    "fix_available": true,
+    "runtime_exposed": true
+  },
+  {
+    "tool": "secrets",
+    "id": "SECRET-001",
+    "severity": "medium",
+    "title": "Demo hardcoded key",
+    "file": "fixtures/vulnerable-python-app/app.py",
+    "fix_available": true,
+    "runtime_exposed": false
+  },
+  {
+    "tool": "iac",
+    "id": "K8S-001",
+    "severity": "medium",
+    "title": "Missing securityContext",
+    "file": "fixtures/insecure-kubernetes/deployment.yaml",
+    "fix_available": true,
+    "runtime_exposed": true
+  }
+]

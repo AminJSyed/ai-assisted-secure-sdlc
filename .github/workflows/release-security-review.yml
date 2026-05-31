@@ -1,0 +1,32 @@
+name: Release Security Review
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-security-review:
+    name: Run Release Security Review
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate review evidence
+        run: |
+          mkdir -p reports
+          python3 ai-reviewer/review_changed_files.py
+          python3 ai-reviewer/finding_triage_assistant.py
+          python3 ai-reviewer/release_security_review.py
+
+      - name: Upload release review report
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-security-review
+          path: |
+            reports/ai-assisted-security-review.md
+            reports/finding-triage-report.md
+            reports/release-security-review.md
