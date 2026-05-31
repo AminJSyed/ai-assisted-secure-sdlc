@@ -14,20 +14,47 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Run AI-assisted security review
+      - name: Detect changed files
+        id: changed-files
         run: |
           mkdir -p reports
-          python3 ai-reviewer/review_changed_files.py
+
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            git diff --name-only origin/${{ github.base_ref }}...HEAD > reports/changed-files.txt
+          else
+            find fixtures ai-reviewer docs .github -type f > reports/changed-files.txt
+          fi
+
+          echo "Changed files:"
+          cat reports/changed-files.txt
+
+      - name: Run AI-assisted security review on changed files
+        run: |
+          FILES=$(cat reports/changed-files.txt | tr '\n' ' ')
+          if [ -z "$FILES" ]; then
+            echo "# AI-Assisted Security Review" > reports/ai-assisted-security-review.md
+            echo "" >> reports/ai-assisted-security-review.md
+            echo "Decision: PASS" >> reports/ai-assisted-security-review.md
+            echo "" >> reports/ai-assisted-security-review.md
+            echo "No changed files detected." >> reports/ai-assisted-security-review.md
+          else
+            python3 ai-reviewer/review_changed_files.py \
+              --paths $FILES \
+              --output reports/ai-assisted-security-review.md
+          fi
 
       - name: Run finding triage assistant
         run: |
           python3 ai-reviewer/finding_triage_assistant.py
 
-      - name: Upload review reports
+      - name: Upload PR review reports
         uses: actions/upload-artifact@v4
         with:
           name: ai-assisted-pr-security-review
           path: |
+            reports/changed-files.txt
             reports/ai-assisted-security-review.md
             reports/finding-triage-report.md

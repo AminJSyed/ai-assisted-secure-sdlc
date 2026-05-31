@@ -168,6 +168,33 @@ The project generates security review reports, converts them into Prometheus-sty
 This makes the Secure SDLC decision process visible through both reports and dashboards.
 
 
+## Pull Request Demo Flow
+
+This project includes a demo flow to show AI-assisted PR security review in action.
+
+Create a demo insecure PR branch:
+
+    make demo-pr
+
+Push the branch:
+
+    git push -u origin demo/insecure-pr-review
+
+Then open a pull request into `main`.
+
+The AI-Assisted PR Security Review workflow will:
+
+- detect changed files
+- scan the PR changes
+- identify risky patterns
+- generate a security review report
+- upload the review as a GitHub Actions artifact
+
+The demo PR intentionally includes insecure patterns so the review should recommend blocking or human review.
+
+This demonstrates how AI-assisted security automation can support PR review without automatically approving risky changes.
+
+
 ## Dashboarding and Observability
 
 This project includes dashboarding for AI-assisted Secure SDLC visibility.

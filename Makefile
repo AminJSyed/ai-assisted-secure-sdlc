@@ -9,6 +9,7 @@ help:
 	@echo "make dashboard       - Generate HTML dashboard and Prometheus metrics"
 	@echo "make monitoring      - Start Prometheus and Grafana dashboard"
 	@echo "make monitoring-down - Stop Prometheus and Grafana dashboard"
+	@echo "make demo-pr        - Create demo insecure PR branch"
 	@echo "make all             - Run all reviews"
 	@echo "make clean           - Remove generated reports"
 
@@ -43,3 +44,7 @@ monitoring: dashboard
 
 monitoring-down:
 	docker compose -f docker-compose.monitoring.yml down
+
+
+demo-pr:
+	./scripts/create-demo-pr-change.sh

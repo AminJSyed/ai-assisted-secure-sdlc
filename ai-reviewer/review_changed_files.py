@@ -153,10 +153,56 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile", choices=["insecure", "secure"], default="insecure")
     parser.add_argument("--output", default=str(REPORT_PATH))
+    parser.add_argument("--paths", nargs="*", help="Optional custom file paths to scan instead of profile fixtures")
     args = parser.parse_args()
 
-    result, findings = generate_report(args.profile, Path(args.output))
-    print(Path(args.output).read_text())
+    if args.paths:
+        custom_targets = [Path(p) for p in args.paths]
+        output = Path(args.output)
+        output.parent.mkdir(exist_ok=True)
+
+        all_findings = []
+        for target in custom_targets:
+            all_findings.extend(scan_file(target))
+
+        result = decision(all_findings)
+
+        lines = []
+        lines.append("# AI-Assisted Security Review")
+        lines.append("")
+        lines.append("Profile: custom")
+        lines.append("")
+        lines.append(f"Decision: {result}")
+        lines.append("")
+        lines.append("## Reviewed Files")
+        lines.append("")
+        for target in custom_targets:
+            lines.append(f"- {target}")
+        lines.append("")
+        lines.append("## Findings")
+        lines.append("")
+
+        if not all_findings:
+            lines.append("No risky patterns detected.")
+        else:
+            for finding in all_findings:
+                lines.append(f"### {finding['id']}")
+                lines.append("")
+                lines.append(f"- Severity: {finding['severity']}")
+                lines.append(f"- File: {finding['file']}")
+                lines.append(f"- Observation: {finding['message']}")
+                lines.append(f"- Recommendation: {finding['recommendation']}")
+                lines.append("")
+
+        lines.append("## Human Review Note")
+        lines.append("")
+        lines.append("This AI-assisted review is advisory. High-risk findings require human review before merge.")
+
+        output.write_text("\n".join(lines))
+        print(output.read_text())
+    else:
+        result, findings = generate_report(args.profile, Path(args.output))
+        print(Path(args.output).read_text())
 
 
 if __name__ == "__main__":
