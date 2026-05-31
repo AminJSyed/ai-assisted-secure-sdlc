@@ -1,4 +1,4 @@
-.PHONY: help ai-review triage release-review all clean
+.PHONY: help ai-review triage release-review all clean ai-review-secure ai-review-insecure dashboard metrics monitoring monitoring-down demo-pr
 
 help:
 	@echo "AI-Assisted Secure SDLC Commands"
