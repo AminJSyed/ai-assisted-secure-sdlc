@@ -7,6 +7,7 @@ help:
 	@echo "make triage          - Run finding triage assistant"
 	@echo "make release-review  - Run release security review"
 	@echo "make security-intelligence - Generate SARIF, risk score, and executive summary"
+	@echo "make ai-remediation - Generate AI-assisted remediation plan"
 	@echo "make dashboard       - Generate HTML dashboard and Prometheus metrics"
 	@echo "make monitoring      - Start Prometheus and Grafana dashboard"
 	@echo "make monitoring-down - Stop Prometheus and Grafana dashboard"
@@ -23,7 +24,7 @@ triage:
 release-review:
 	python3 ai-reviewer/release_security_review.py
 
-all: ai-review triage release-review security-intelligence
+all: ai-review triage release-review security-intelligence ai-remediation
 
 clean:
 	rm -rf reports/*
@@ -53,3 +54,7 @@ demo-pr:
 
 security-intelligence:
 	python3 ai-reviewer/security_intelligence.py
+
+
+ai-remediation:
+	python3 ai-reviewer/ai_remediation_assistant.py

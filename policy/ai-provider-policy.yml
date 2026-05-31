@@ -1,0 +1,29 @@
+ai_provider_policy:
+  default_provider: rule_based
+
+  allowed_providers:
+    - rule_based
+    - mock
+    - external
+
+  external_provider_requirements:
+    required_environment_variables:
+      - AI_PROVIDER
+      - AI_API_URL
+      - AI_API_KEY
+
+    secret_handling:
+      - API keys must be stored in GitHub Secrets or a secret manager.
+      - API keys must never be committed to the repository.
+      - Production secrets must not be included in prompts.
+
+    data_handling:
+      - Do not send customer data.
+      - Do not send production credentials.
+      - Do not send private keys or tokens.
+      - Use sanitized security findings and metadata only.
+
+    approval:
+      - AI output is advisory.
+      - Human approval is required for high-risk release decisions.
+      - Human approval is required before accepting critical or high findings.

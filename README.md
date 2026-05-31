@@ -238,6 +238,33 @@ The demo PR intentionally includes insecure patterns so the review should recomm
 This demonstrates how AI-assisted security automation can support PR review without automatically approving risky changes.
 
 
+## Optional AI Provider Integration
+
+This project supports optional AI provider integration while keeping the default workflow safe and deterministic.
+
+| Provider Mode | Purpose |
+|---|---|
+| rule_based | Default local mode used in CI/CD. No external AI API required |
+| mock | Simulates LLM-style review and remediation output without external calls |
+| external | Optional integration with an approved external AI gateway using secrets |
+
+Run AI-assisted remediation locally:
+
+    make ai-remediation
+
+Run with mock provider mode:
+
+    AI_PROVIDER=mock make ai-remediation
+
+External provider mode requires these environment variables:
+
+    AI_PROVIDER=external
+    AI_API_URL=<approved-ai-gateway-url>
+    AI_API_KEY=<stored-securely>
+
+No real API key or production secret should be committed to this repository.
+
+
 ## Governance Layer
 
 This project includes a governance layer for production-style Secure SDLC control.
