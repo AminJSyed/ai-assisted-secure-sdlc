@@ -1,7 +1,7 @@
 from pathlib import Path
 import json
 import re
-from datetime import datetime
+from datetime import datetime, UTC
 
 REPORTS = {
     "insecure": Path("reports/ai-assisted-security-review-insecure.md"),
@@ -77,7 +77,7 @@ def generate():
 </head>
 <body>
   <h1>AI-Assisted Secure SDLC Dashboard</h1>
-  <div class="subtitle">Generated: {datetime.utcnow().isoformat()} UTC</div>
+  <div class="subtitle">Generated: {datetime.now(UTC).isoformat()} UTC</div>
 
   <div class="grid">
     <div class="card">
