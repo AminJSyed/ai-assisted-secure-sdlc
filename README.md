@@ -159,6 +159,8 @@ The dashboarding layer shows how insecure code and configuration can result in a
 | ![HTML Security Dashboard](screenshots/html-security-dashboard.png) | Static HTML dashboard generated from AI-assisted security review and release review outputs |
 | ![Prometheus Secure SDLC Metrics](screenshots/prometheus-secure-sdlc-metrics.png) | Prometheus metrics exposed for Secure SDLC findings, release decision, and triage priorities |
 | ![GitHub PR Security Gate Failed](screenshots/github-pr-security-gate-failed.png) | Pull request blocked by the AI-assisted PR security review after detecting risky code patterns |
+| ![GitHub Security Overview](screenshots/github-security-overview.png) | GitHub Security and quality overview showing code scanning and secret scanning enabled |
+| ![GitHub Code Scanning Alerts](screenshots/github-code-scanning-alerts.png) | AI-assisted SARIF findings visible in GitHub Code Scanning alerts |
 
 ### Observability Flow
 
