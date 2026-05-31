@@ -29,7 +29,8 @@ jobs:
           mkdir -p reports
 
           if [ "${{ github.event_name }}" = "pull_request" ]; then
-            git diff --name-only origin/${{ github.base_ref }}...HEAD > reports/changed-files.txt
+            git fetch origin "${{ github.base_ref }}"
+            git diff --name-only "origin/${{ github.base_ref }}...HEAD" > reports/changed-files.txt
           else
             find fixtures ai-reviewer docs .github -type f > reports/changed-files.txt
           fi
@@ -42,13 +43,16 @@ jobs:
           FILES=$(cat reports/changed-files.txt | tr '\n' ' ')
 
           if [ -z "$FILES" ]; then
-            cat > reports/ai-assisted-security-review.md <<'REPORT'
-# AI-Assisted Security Review
+            python3 - <<'PY'
+            from pathlib import Path
 
-Decision: PASS
-
-No changed files detected.
-REPORT
+            Path("reports").mkdir(exist_ok=True)
+            Path("reports/ai-assisted-security-review.md").write_text(
+                "# AI-Assisted Security Review\n\n"
+                "Decision: PASS\n\n"
+                "No changed files detected.\n"
+            )
+            PY
           else
             python3 ai-reviewer/review_changed_files.py \
               --paths $FILES \
